@@ -19,7 +19,7 @@ app.use(cookieParser())  //user ke browser ka cookies access and set kar pau and
 
 //routes import
 
-router.get("/", (req, res) => {
+app.get("/", (req, res) => {
   res.json({ message: "Users route working!" });
 });
 
