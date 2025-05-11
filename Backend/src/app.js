@@ -19,6 +19,11 @@ app.use(cookieParser())  //user ke browser ka cookies access and set kar pau and
 
 //routes import
 
+router.get("/", (req, res) => {
+  res.json({ message: "Users route working!" });
+});
+
+
 import userRouter from "./routes/user.routes.js";
 import commentRouter from "./routes/comment.routes.js"
 import videoRouter from "./routes/video.routes.js"
