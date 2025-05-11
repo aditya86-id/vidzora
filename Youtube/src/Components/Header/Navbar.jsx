@@ -144,7 +144,14 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
         position="fixed"
         sx={{ backgroundColor: "#0f0f0f", boxShadow: "none", zIndex: 1300 }}
       >
-        <Toolbar sx={{ justifyContent: "space-between" }}>
+        <Toolbar
+          sx={{
+            justifyContent: "space-between",
+            flexWrap: "wrap", // Enable wrapping on small screens
+            width: "100%", // Make sure it spans full width
+            px: { xs: 1, sm: 2 },
+          }}
+        >
           {/* Left Section */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <IconButton onClick={handleNavToggle} sx={{ color: "white" }}>
@@ -154,7 +161,6 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
               to="/"
               className="flex items-center space-x-2 text-decoration-none"
             >
-              
               <span className="text-2xl font-extrabold text-[#FF4C4C] tracking-wide">
                 Vidzora
               </span>
@@ -167,36 +173,48 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
               display: "flex",
               alignItems: "center",
               flex: 1,
-              //maxWidth: { sm: 600, md: 800, lg: "none" },
-              mx: { sm: 6, lg: 20 },
-              ml: 3,
+              mx: { xs: 1, sm: 2, md: 6, lg: 10 }, // reduce margin on small screens
+              minWidth: 0, // Prevents overflow
             }}
           >
-            <Search sx={{ flexGrow: 1 }}>
+            <Search
+              sx={{
+                flexGrow: 1,
+                width: "100%", // Ensure search spans full width in its container
+              }}
+            >
               <SearchInput
                 placeholder="Search…"
                 value={query}
-                onChange={(e) => setQuery(e.target.value)} // Track input
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") handleSearch(); // Support Enter key
-                }}
-                sx={{ flexGrow: 1 }}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && handleSearch()}
               />
-              <IconButton
-                type="button"
-                sx={{ p: 1, color: "white" }}
-                onClick={handleSearch} // Trigger search here
-              >
+              <IconButton sx={{ p: 1, color: "white" }} onClick={handleSearch}>
                 <SearchIcon />
               </IconButton>
             </Search>
-            <IconButton sx={{ ml: 1, color: "white" }}>
+
+            <IconButton
+              sx={{
+                ml: 1,
+                color: "white",
+                display: { xs: "none", sm: "block" },
+              }} // hide mic on XS
+            >
               <KeyboardVoiceIcon />
             </IconButton>
           </Box>
 
           {/* Right Section */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              mt: { xs: 1, sm: 0 }, // push down on mobile
+              flexWrap: "wrap",
+            }}
+          >
             <Link
               to="/322/upload"
               style={{
@@ -211,11 +229,18 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
               }}
             >
               <AddIcon sx={{ fontSize: { sm: "26px", xs: "20px" } }} />
-              <Typography variant="body1">Create</Typography>
+              <Typography
+                variant="body1"
+                sx={{ display: { xs: "none", sm: "block" } }}
+              >
+                Create
+              </Typography>
             </Link>
+
             <IconButton sx={{ color: "white" }}>
               <NotificationsIcon sx={{ fontSize: 28 }} />
             </IconButton>
+
             <IconButton onClick={handleAvatarClick}>
               <Avatar src={userPic} alt="user" />
             </IconButton>

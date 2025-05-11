@@ -68,7 +68,7 @@ function HomePage({ sideNavBar }) {
     <div className="bg-black text-white min-h-screen">
       {/* Scrollable Category Bar */}
       <div
-        className={`fixed top-[60px] z-10 w-full bg-black py-3 px-4 ${
+        className={`fixed top-[55px] z-10 w-full bg-black py-3 px-4 ${
           sideNavBar ? "sm:ml-[240px]" : "ml-0"
         }`}
       >

@@ -21,7 +21,7 @@ import EditProfile from "./Components/Pages/Home/EditProfile.jsx";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [sideNavBar, setSideNavBar] = useState(true);
+  const [sideNavBar, setSideNavBar] = useState(false);
   const location = useLocation();
 
   const setSideNavBarFunc = (value) => {

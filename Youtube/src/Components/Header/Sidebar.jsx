@@ -105,8 +105,8 @@ const Sidebar = ({ sideNavBar }) => {
         bgcolor: "black",
         color: "white",
         overflowY: "auto",
-        display: { xs: "none", sm: "block" },
-        zIndex: 10,
+        display: sideNavBar ? "block" : "none",
+        zIndex: 1200, // ensure it's above other elements
       }}
     >
       <List>
