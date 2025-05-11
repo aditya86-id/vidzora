@@ -17,7 +17,7 @@ function Profile({ sideNavBar }) {
     const fetchChannelProfile = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/v1/users/channel-profile/${userId}`,
+          `${import.meta.env.VITE_API_URL}/users/channel-profile/${userId}`
         );
         setProfile(res.data.data); // Proper profile info
       } catch (err) {
@@ -28,7 +28,7 @@ function Profile({ sideNavBar }) {
     const fetchChannelVideos = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/v1/video?userId=${userId}`
+          `${import.meta.env.VITE_API_URL}/video?userId=${userId}`
         );
         setVideos(res.data.data.docs || res.data.data); // Handle both paginated and flat responses
       } catch (err) {
@@ -57,7 +57,7 @@ function Profile({ sideNavBar }) {
     if (!confirmDelete) return;
     try {
       await axios.delete(
-        `http://localhost:5000/api/v1/video/delete/${videoId}`
+        `${import.meta.env.VITE_API_URL}/video/delete/${videoId}`
       );
       setVideos(videos.filter((item) => item._id !== videoId));
     } catch (err) {

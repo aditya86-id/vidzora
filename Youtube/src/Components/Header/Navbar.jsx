@@ -102,7 +102,7 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/api/v1/users/logout",
+        `${import.meta.env.VITE_API_URL}/users/logout`,
         {},
         { withCredentials: true }
       );
@@ -121,11 +121,16 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
 
   useEffect(async() => {
     try{
-      const res=await axios.get("http://localhost:5000/api/v1/users/current-user",{
-        headers:{
-          Authorization: `Bearer ${localStorage.getItem("accesstoken").trim()}`,
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/users/current-user`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage
+              .getItem("accesstoken")
+              .trim()}`,
+          },
         }
-      })
+      );
       setUserPic(res.data.data.avatar)
       setUserLogin(true)
     }
@@ -147,19 +152,12 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
             </IconButton>
             <Link
               to="/"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                textDecoration: "none",
-              }}
+              className="flex items-center space-x-2 text-decoration-none"
             >
-              <YouTubeIcon sx={{ fontSize: 32, color: "red" }} />
-              <Typography
-                variant="h6"
-                sx={{ color: "white", fontWeight: "bold", ml: 0.5}}
-              >
-                YouTube
-              </Typography>
+              
+              <span className="text-2xl font-extrabold text-[#FF4C4C] tracking-wide">
+                Vidzora
+              </span>
             </Link>
           </Box>
 
@@ -170,11 +168,11 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
               alignItems: "center",
               flex: 1,
               //maxWidth: { sm: 600, md: 800, lg: "none" },
-              mx: { sm:6,lg:20},
-              ml:3
+              mx: { sm: 6, lg: 20 },
+              ml: 3,
             }}
           >
-            <Search sx={{flexGrow:1}}>
+            <Search sx={{ flexGrow: 1 }}>
               <SearchInput
                 placeholder="Search…"
                 value={query}
@@ -212,7 +210,7 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
                 gap: 6,
               }}
             >
-              <AddIcon sx={{ fontSize: {sm:"26px",xs:"20px" }}} />
+              <AddIcon sx={{ fontSize: { sm: "26px", xs: "20px" } }} />
               <Typography variant="body1">Create</Typography>
             </Link>
             <IconButton sx={{ color: "white" }}>

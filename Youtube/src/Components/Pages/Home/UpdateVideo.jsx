@@ -20,7 +20,7 @@ function UpdateVideo() {
     const fetchVideoDetails = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/v1/video/v/${videoId}`
+          `${import.meta.env.VITE_API_URL}/video/v/${videoId}`
         );
         console.log(res);
         setVideo({
@@ -62,7 +62,7 @@ function UpdateVideo() {
     try {
       const token = localStorage.getItem("accesstoken")?.trim();
       const res = await axios.patch(
-        `http://localhost:5000/api/v1/video/v/${videoId}`,
+        `${import.meta.env.VITE_API_URL}/video/v/${videoId}`,
         formData,
         {
           headers: {

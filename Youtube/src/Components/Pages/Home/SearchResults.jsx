@@ -16,7 +16,7 @@ function SearchResults() {
     const fetchSearchResults = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/v1/video/search?q=${query}`
+          `${import.meta.env.VITE_API_URL}/video/search?q=${query}`
         );
         // ✅ FIXED: Use response.data.data
         setResults(response.data.data || []);

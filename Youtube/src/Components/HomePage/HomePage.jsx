@@ -29,8 +29,8 @@ function HomePage({ sideNavBar }) {
   useEffect(() => {
     const url =
       selectedCategory === "All"
-        ? "http://localhost:5000/api/v1/video/"
-        : `http://localhost:5000/api/v1/video/category/${selectedCategory}`;
+        ? `${import.meta.env.VITE_API_URL}/video/`
+        : `${import.meta.env.VITE_API_URL}/video/category/${selectedCategory}`;
 
     axios
       .get(url)
@@ -45,7 +45,7 @@ function HomePage({ sideNavBar }) {
       const token = localStorage.getItem("accesstoken")?.trim();
 
       await axios.post(
-        "http://localhost:5000/api/v1/watch/progress",
+        `${import.meta.env.VITE_API_URL}/watch/progress`,
         {
           videoId,
           duration,

@@ -32,7 +32,7 @@ function Login({ handleCancel }) {
     console.log("sending request");
     axios
       .post(
-        "http://localhost:5000/api/v1/users/login",
+        `${import.meta.env.VITE_API_URL}/users/login`,
         {
           username: loginField.username,
           email: loginField.email,
@@ -50,7 +50,7 @@ function Login({ handleCancel }) {
         localStorage.setItem("userId", res.data.data.user._id);
         localStorage.setItem("avatar", res.data.data.user.avatar);
         localStorage.setItem("accesstoken", res.data.data.accessToken);
-        localStorage.setItem("username",res.data.data.user.username);
+        localStorage.setItem("username", res.data.data.user.username);
         setIsLoginOpen(false);
         toast.success("Login successful");
         setTimeout(() => {

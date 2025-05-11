@@ -34,12 +34,12 @@ const ResetPassword = () => {
       console.log(token)
 
       const res = await axios.post(
-        "http://localhost:5000/api/v1/users/reset-password",
+        `${import.meta.env.VITE_API_URL}/users/reset-password`,
         {
-          password:confirmPassword,
+          password: confirmPassword,
           token,
-        }
-        ,{
+        },
+        {
           headers: {
             "Content-Type": "application/json",
           },

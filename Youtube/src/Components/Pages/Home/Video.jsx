@@ -33,7 +33,7 @@ function Video() {
   const fetchVideo = async () => {
   try {
     const res = await axios.get(
-      `http://localhost:5000/api/v1/video/v/${videoId}`
+      `${import.meta.env.VITE_API_URL}/video/v/${videoId}`
     );
     console.log(res.data); // Log the full response to check the subscriber count
     setSubscribersCount(res.data.data.subscribersCount);
@@ -47,7 +47,7 @@ function Video() {
 
   const fetchAllVideos = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/v1/video/`);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/video/`);
       setAllVideos(res.data.data.docs);
     } catch (err) {
       console.log(err);
@@ -57,7 +57,7 @@ function Video() {
   const fetchComments = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/v1/comments/${videoId}`
+        `${import.meta.env.VITE_API_URL}/comments/${videoId}`
       );
       setComments(res.data.data.docs);
     } catch (err) {
@@ -74,7 +74,7 @@ function Video() {
         return;
       }
       const res = await axios.post(
-        `http://localhost:5000/api/v1/comments/comment/${videoId}`,
+        `${import.meta.env.VITE_API_URL}/comments/comment/${videoId}`,
         { content },
         {
           headers: {
@@ -98,7 +98,7 @@ function Video() {
     try {
       const token = localStorage.getItem("accesstoken");
       const res = await axios.post(
-        `http://localhost:5000/api/v1/likes/toggle/v/${videoId}`,
+        `${import.meta.env.VITE_API_URL}/likes/toggle/v/${videoId}`,
         {},
         {
           headers: {
@@ -123,7 +123,7 @@ function Video() {
     try {
       const token = localStorage.getItem("accesstoken");
       const res = await axios.post(
-        `http://localhost:5000/api/v1/likes/toggle/v/${videoId}`,
+        `${import.meta.env.VITE_API_URL}/likes/toggle/v/${videoId}`,
         {},
         {
           headers: {
@@ -150,7 +150,7 @@ function Video() {
      if (!token || !video?.owner?._id) return;
 
      const res = await axios.post(
-       `http://localhost:5000/api/v1/subscription/${video.owner._id}`,
+       `${import.meta.env.VITE_API_URL}/subscription/${video.owner._id}`,
        {}, // Empty body
        {
          headers: {
@@ -207,7 +207,9 @@ function Video() {
 
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/v1/subscription/channel/${video.owner._id}`,
+          `${import.meta.env.VITE_API_URL}/subscription/channel/${
+            video.owner._id
+          }`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -232,7 +234,9 @@ function Video() {
 
    try {
      const res = await axios.get(
-       `http://localhost:5000/api/v1/subscription/channel/${video.owner._id}/subscribers` // Assuming the correct API endpoint
+       `${import.meta.env.VITE_API_URL}/subscription/channel/${
+         video.owner._id
+       }/subscribers` // Assuming the correct API endpoint
      );
      console.log(res.data); // Check if the API returns the correct subscriber count
      setSubscriberCount(res.data.subscriberCount); // Set subscriber count in state

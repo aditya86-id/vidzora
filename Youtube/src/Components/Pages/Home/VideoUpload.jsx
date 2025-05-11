@@ -39,7 +39,7 @@ function VideoUpload() {
       formData.append("thumbnail", thumbnailFile);
       formData.append("videoFile", videoFile);
       const res = await axios.post(
-        "http://localhost:5000/api/v1/video/",
+        `${import.meta.env.VITE_API_URL}/video/`,
         formData,
         {
           headers: {

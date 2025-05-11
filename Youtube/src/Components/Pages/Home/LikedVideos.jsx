@@ -15,11 +15,14 @@ function LikedVideos({ sideNavBar }) {
         return;
       }
 
-      const res = await axios.get("http://localhost:8000/api/v1/likes/videos", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/likes/videos`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (res.data && Array.isArray(res.data.data)) {
         setLikedVideos(res.data.data);

@@ -10,7 +10,7 @@ const WatchHistory = ({ sideNavBar }) => {
         const token = localStorage.getItem("accesstoken")?.trim();
 
         const res = await axios.get(
-          "http://localhost:5000/api/v1/watch/history",
+          `${import.meta.env.VITE_API_URL}/watch/history`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

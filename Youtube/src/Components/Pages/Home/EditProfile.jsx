@@ -26,7 +26,7 @@ const EditProfile = () => {
     const fetchProfile = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/v1/users/current-user",
+          `${import.meta.env.VITE_API_URL}/users/current-user`,
           {
             headers: {
               Authorization: `Bearer ${localStorage
@@ -80,7 +80,7 @@ const EditProfile = () => {
       }
 
       await axios.patch(
-        "http://localhost:5000/api/v1/users/update-account",
+        `${import.meta.env.VITE_API_URL}/users/update-account`,
         updateData,
         {
           headers: {

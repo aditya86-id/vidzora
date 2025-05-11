@@ -55,13 +55,13 @@ function SignUp() {
     if (avatarFile) formData.append("avatar", avatarFile);
 
     axios
-      .post("http://localhost:5000/api/v1/users/register", formData, {
+      .post(`${import.meta.env.VITE_API_URL}/users/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
-        toast.success("Successfully registered. You can now log in.")
+        toast.success("Successfully registered. You can now log in.");
         navigate("/");
       })
       .catch((error) => {

@@ -23,7 +23,7 @@ const SubscriptionPage = ({ sideNavBar }) => {
           return;
         }
         const res = await axios.get(
-          "http://localhost:5000/api/v1/subscription/",
+          `${import.meta.env.VITE_API_URL}/subscription/`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
