@@ -97,7 +97,7 @@ function App() {
             path="/user/:id"
             element={<Profile sideNavBar={sideNavBar} />}
           />
-          <Route path="/:id/upload" element={<VideoUpload />} />
+          <Route path="/upload" element={<VideoUpload />} />
           <Route
             path="/playlist"
             element={<PlayList sideNavBar={sideNavBar} />}

@@ -216,7 +216,7 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
             }}
           >
             <Link
-              to="/322/upload"
+              to="/upload"
               style={{
                 color: "white",
                 textDecoration: "none",
