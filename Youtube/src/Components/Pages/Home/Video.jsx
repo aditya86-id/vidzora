@@ -253,11 +253,11 @@ useEffect(() => {
 
 
   return (
-    <div className="Video mt-[71px] md:flex justify-start px-[40px] pt-0 bg-black gap-9 pb-4">
-      <div className="VideoPost-section w-full max-w-[875px] flex flex-col">
+    <div className="Video mt-[71px] md:flex md:justify-between px-[20px] md:px-[40px] pt-0 bg-black  pb-4">
+      <div className="VideoPost-section w-full md:w-[70%] max-w-[875px] flex flex-col">
         <div className="Video_tube w-full">
           <video
-            width="400"
+            width="700"
             controls
             autoPlay
             src={video?.videoFile?.url}
@@ -268,12 +268,12 @@ useEffect(() => {
         </div>
         <div className="video_youTube_about mt-3">
           <h2 className="text-white font-bold text-xl">{video.title}</h2>
-          <div className="flex mt-2 items-center justify-between">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-3">
             <div className="video-title flex gap-5">
               <Link to={`/user/${video?.owner?._id}`}>
                 <img
                   src={video?.owner?.avatar}
-                  className="h-[40px] w-[40px] rounded-full border"
+                  className="h-[40px] w-[40px] md:h-[40px] md:w-[40px] rounded-full border"
                 />
               </Link>
               <div className="flex flex-col">
@@ -301,7 +301,7 @@ useEffect(() => {
                 </button>
               )}
             </div>
-            <div className="text-white flex gap-2 rounded-xl bg-[rgb(42,42,42)] px-2 py-2">
+            <div className="text-white flex gap-2 w-fit rounded-xl bg-[rgb(42,42,42)] px-2 py-2">
               <div onClick={handleLike} className="cursor-pointer">
                 {thumbUp ? <ThumbUpIcon /> : <ThumbUpOffAltIcon />}
               </div>
@@ -350,9 +350,9 @@ useEffect(() => {
               Comment
             </button>
           </div>
-            {comments.map((item, index) => (
-              <div key={item._id} className="flex justify-between p-5">
-                <div className="mb-3">
+          {comments.map((item, index) => (
+            <div key={item._id} className="flex justify-between p-5">
+              <div className="mb-3">
                 <div className="md:flex gap-3 items-center hidden">
                   <img
                     src={item?.owner?.avatar}
@@ -368,46 +368,58 @@ useEffect(() => {
                 <h2 className="hidden md:block ml-[50px] text-white">
                   {item?.content}
                 </h2>
-                {commentIcon?
-                <div className="text-white flex gap-4 ml-[50px] mt-3" onClick={handleCommentLike}>
-                <ThumbUpIcon/>
-                <ThumbDownAltIcon/>
-                </div>:<div className="text-white flex gap-4 ml-[50px] mt-3" onClick={handleCommentLike}>
-                  <ThumbUpOffAltIcon/>
-                  <ThumbDownOffAltIcon/>
-                </div>
-                }
-                </div>
-                <div className="mt-3">
-                  <MoreVertIcon className="cursor-pointer text-white" />
-                </div>
+                {commentIcon ? (
+                  <div
+                    className="hidden md:flex text-white gap-4 ml-[50px] mt-3"
+                    onClick={handleCommentLike}
+                  >
+                    <ThumbUpIcon />
+                    <ThumbDownAltIcon />
+                  </div>
+                ) : (
+                  <div
+                    className="hidden md:flex text-white gap-4 ml-[50px] mt-3"
+                    onClick={handleCommentLike}
+                  >
+                    <ThumbUpOffAltIcon />
+                    <ThumbDownOffAltIcon />
+                  </div>
+                )}
               </div>
-            ))}
+              <div className="mt-3 hidden md:block">
+                <MoreVertIcon className="cursor-pointer text-white" />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      <div className="videoSuggestion text-white p-3 mt-4 md:mt-0 w-25">
+      <div className="videoSuggestion text-white mt-0 md:mt-0 w-full md:w-[38%]">
         <div className="video-List flex flex-col gap-3">
-          {allVideos.map((item, index) => (
+          {allVideos.map((item) => (
             <div
               key={item._id}
               className="video flex gap-2 cursor-pointer"
               onClick={() => handleVideoClick(item._id)}
             >
-              <img
-                src={item?.thumbnail?.url}
-                className="h-[150px] w-[250px] border mt-1 rounded-2xl"
-              ></img>
-              <div class="flex flex-col gap-2 mt-3">
-                <h1 className="text-white">{item.title}</h1>
+              <div className="h-[100px] sm:h-[120px] md:h-[150px] w-[180px] sm:w-[200px] md:w-[250px] overflow-hidden rounded-2xl border flex-shrink-0">
+                <img
+                  src={item?.thumbnail?.url}
+                  className="h-full w-full object-cover"
+                  alt="video thumbnail"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2 mt-1 w-full overflow-hidden">
+                <h1 className="text-gray-100 font-semibold text-sm sm:text-base line-clamp-2 break-words">
+                  {item.title}
+                </h1>
                 <div className="flex flex-col gap-1">
-                  <h2 className="text-gray-600">
+                  <h2 className="text-gray-300 text-xs sm:text-sm">
                     {item?.ownerDetails?.username}
                   </h2>
-                  <div className="flex gap-2">
-                    <h2 className="text-gray-600">{item.views} views .</h2>
-                    <h2 className="text-gray-600">
-                      {item.createdAt?.slice(0, 10)}
-                    </h2>
+                  <div className="flex gap-2 text-gray-400 text-xs sm:text-sm flex-wrap">
+                    <h2>{item.views} views ·</h2>
+                    <h2>{item.createdAt?.slice(0, 10)}</h2>
                   </div>
                 </div>
               </div>
