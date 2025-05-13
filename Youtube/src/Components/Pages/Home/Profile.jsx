@@ -70,7 +70,7 @@ function Profile({ sideNavBar }) {
   };
 
   return (
-    <div className="Profile mt-[71px] bg-black h-screen overflow-hidden">
+    <div className="Profile mt-[71px] bg-black h-screen overflow-x-hidden overflow-y-auto">
       <Sidebar sideNavBar={sideNavBar} />
       <div
         className={`Profile-page mt-7 flex-1 p-4 overflow-y-auto ${
@@ -81,7 +81,7 @@ function Profile({ sideNavBar }) {
           <img
             src={profile?.avatar || "default-avatar.png"}
             alt="User avatar"
-            className="w-[230px] h-[230px] rounded-full object-cover cursor-pointer"
+            className="w-[230px] h-[230px] rounded-full object-cover cursor-pointer sm:w-[180px] sm:h-[180px] w-[150px] h-[150px]"
             onClick={handleProfile}
           />
           <div className="flex flex-col gap-2 justify-center">
@@ -108,7 +108,7 @@ function Profile({ sideNavBar }) {
             {videos.map((item, index) => (
               <div
                 key={index}
-                className="bg-[#1e1e1e] p-3 rounded-xl shadow-md w-full relative"
+                className="bg-[#1e1e1e] p-3 rounded-xl shadow-md w-full max-w-full relative"
               >
                 <Link to={`/watch/${item?._id}`}>
                   <img
@@ -117,7 +117,7 @@ function Profile({ sideNavBar }) {
                     alt={item?.title}
                   />
                   <div className="mt-2">
-                    <h2 className="text-white text-sm font-semibold truncate">
+                    <h2 className="text-white text-sm font-semibold truncate min-w-0">
                       {item?.title}
                     </h2>
                     <p className="text-gray-500 text-xs">
