@@ -119,7 +119,8 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
     setAnchorEl(null);
   }, [location]);
 
-  useEffect(async() => {
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
     try{
       const res = await axios.get(
         `${import.meta.env.VITE_API_URL}/users/current-user`,
@@ -136,7 +137,9 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
     }
     catch(err){
       console.log("failed to fetch user",err)
-    }},[])
+    }
+  }
+  fetchCurrentUser()},[])
 
   return (
     <>

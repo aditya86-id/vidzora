@@ -27,10 +27,10 @@ function Login({ handleCancel }) {
     window.location.reload();
   }
 
-  const handleLogin = () => {
+  const handleLogin = async() => {
     setProgress(true);
     console.log("sending request");
-    axios
+    await axios
       .post(
         `${import.meta.env.VITE_API_URL}/users/login`,
         {

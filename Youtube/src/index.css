@@ -4,35 +4,46 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
-    html {
-        font-family: 'Hedvig Letters Sans','Space Grotesk', sans-serif;
-    }
+  html {
+    font-family: 'Hedvig Letters Sans', 'Space Grotesk', sans-serif;
+  }
 }
 
+/* ✅ REMOVE this – it forces a scroll even if not needed */
 html {
-    overflow: scroll;
-    overflow-x: hidden;
+  overflow-x: hidden;
+  /* Do NOT use overflow: scroll here unless you need it */
 }
 
-/* styles.css or global.css if needed */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+/* ✅ Universal scrollbar hiding across all elements and browsers */
+* {
+  scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none;      /* IE and Edge */
 }
 
-::-webkit-scrollbar {
-    width: 0;  /* Remove scrollbar space */
-    background: transparent;  /* Optional: just make scrollbar invisible */
+*::-webkit-scrollbar {
+  display: none;                 /* Chrome, Safari, Opera */
 }
-/* Optional: show position indicator in red */
-::-webkit-scrollbar-thumb {
-    background: #FF0000;
+
+/* ✅ Optional: Hide scrollbar thumb background if any */
+*::-webkit-scrollbar-thumb {
+  background: transparent;       /* fully transparent if you want no red thumb */
 }
+
+/* ✅ Remove this if not needed or make it consistent */
 .HomePage-options {
   scrollbar-width: none; /* Firefox */
+}
+
+
+@media (max-width: 640px) {
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
 }

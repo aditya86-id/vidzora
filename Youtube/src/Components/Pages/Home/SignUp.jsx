@@ -45,7 +45,7 @@ function SignUp() {
     }
   };
 
-  const handleSignUpData = () => {
+  const handleSignUpData = async() => {
     const formData = new FormData();
     formData.append("username", signUpField.username);
     formData.append("email", signUpField.email);
@@ -54,7 +54,7 @@ function SignUp() {
     formData.append("about", signUpField.about);
     if (avatarFile) formData.append("avatar", avatarFile);
 
-    axios
+    await axios
       .post(`${import.meta.env.VITE_API_URL}/users/register`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -75,7 +75,7 @@ function SignUp() {
 
   return (
     <div className=" bg-black">
-      <div className="Sign-Up inset-0 z-50 bg-black bg-opacity-90 overflow-y-auto flex justify-center items-center p-4 text-white pointer-events-auto">
+      <div className="Sign-Up inset-0 z-50 bg-black bg-opacity-90 overflow-y-auto flex justify-center items-center p-4 text-white pointer-events-auto hide-scrollbar">
         <div className="Video-upload flex flex-col items-center border-[2px] w-full max-w-[600px] shadow-[0.5px_0.5px_8px_white] px-4 sm:px-6 bg-black pt-6 pb-10 rounded-lg">
           <div className="Video-tag flex items-center gap-3">
             <YouTubeIcon sx={{ color: "red", fontSize: "54px" }} />
@@ -117,7 +117,7 @@ function SignUp() {
               value={signUpField.about}
               onChange={(e) => handleSignUpField(e, "about")}
             />
-            <div className="flex flex-row sm:flex-row w-full items-center sm:gap-4">
+            <div className="flex flex-col sm:flex-row w-full items-center sm:gap-4">
               <input
                 type="file"
                 accept="image/*"
@@ -127,7 +127,7 @@ function SignUp() {
               <img
                 src={avatarPreview}
                 alt="Preview"
-                className="w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] rounded-full object-cover"
+                className="w-[60px] h-[60px] sm:w-[100px] sm:h-[100px] md:w-[120px] md:h-[120px] rounded-full object-cover mt-5 sm:mt-0"
               />
             </div>
           </div>

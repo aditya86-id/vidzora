@@ -19,6 +19,7 @@ import ForgotPassword from "./Components/Pages/Home/ForgotPassword.jsx";
 import ResetPassword from "./Components/Pages/Home/ResetPassword.jsx";
 import EditProfile from "./Components/Pages/Home/EditProfile.jsx";
 import "react-toastify/dist/ReactToastify.css";
+import ErrorBoundary from "./Components/Pages/Home/ErrorBoundary.jsx";
 
 function App() {
   const [sideNavBar, setSideNavBar] = useState(false);
@@ -72,20 +73,24 @@ function App() {
       {/* Sidebar + Navbar only interactive if not in SignUp */}
       <Sidebar sideNavBar={sideNavBar} />
       <div className="flex-1">
-        {!isSignUpPage && !isForgotPassword && !isEditProfile &&(
-          <Navbar
-            setSideNavBarFunc={setSideNavBarFunc}
-            sideNavBar={sideNavBar}
-          />
+        {!isSignUpPage && !isForgotPassword && !isEditProfile && (
+          <ErrorBoundary>
+            <Navbar
+              setSideNavBarFunc={setSideNavBarFunc}
+              sideNavBar={sideNavBar}
+            />
+          </ErrorBoundary>
         )}
-        
+
         <Routes>
           {/* ✅ SignUp rendered with pointer events ON */}
           <Route
             path="/signUp"
             element={
               <div className="fixed inset-0 z-50 pointer-events-auto">
-                <SignUp />
+                <ErrorBoundary>
+                  <SignUp />
+                </ErrorBoundary>
               </div>
             }
           />
@@ -118,7 +123,7 @@ function App() {
           <Route path="/update-video/:videoId" element={<UpdateVideo />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:id" element={<ResetPassword />} />
-          <Route path="/update-profile" element={<EditProfile/>}/>
+          <Route path="/update-profile" element={<EditProfile />} />
         </Routes>
         <ToastContainer position="top-right" autoClose={3000} />
       </div>
