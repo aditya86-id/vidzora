@@ -61,74 +61,81 @@ function VideoUpload() {
 
   console.log(videoUpload);
   return (
-    <div className="bg-black h-screen fixed inset-0 mb-5">
-      <div className="mt-[71px] flex justify-center">
-        <div className="Video-upload flex flex-col items-center justify-center border-[2px] w-[500px] sm:w-[700px] shadow-[0.5px_0.5px_8px_white] mt-10 p-6">
+    <div className="bg-black min-h-screen fixed inset-0 overflow-y-auto">
+      <div className="mt-[71px] flex justify-center px-4 sm:px-0">
+        <div className="Video-upload flex flex-col items-center justify-center border-2 w-full max-w-xl sm:max-w-2xl shadow-[0.5px_0.5px_8px_white] mt-10 p-6">
+          {/* Heading */}
           <div className="Video-tag flex items-center">
             <YouTubeIcon sx={{ color: "red", fontSize: "54px" }} />
             <h1 className="font-medium text-2xl text-white mt-2">
               Upload Video
             </h1>
           </div>
-          <div class="mt-6 flex flex-col gap-4 w-[400px] sm:w-[500px]">
+
+          {/* Input fields */}
+          <div className="mt-6 flex flex-col gap-4 w-full px-2 sm:px-0">
             <input
               type="text"
               placeholder="Title of Video"
-              className="bg-[#222222] text-white p-2 rounded-lg"
+              className="bg-[#222222] text-white p-2 rounded-lg w-full"
               value={videoUpload.title}
               onChange={(e) => handleVideoUpload(e, "title")}
-            ></input>
+            />
             <input
               type="text"
               placeholder="Description"
-              className="bg-[#222222] text-white p-2 rounded-lg"
+              className="bg-[#222222] text-white p-2 rounded-lg w-full"
               value={videoUpload.description}
               onChange={(e) => handleVideoUpload(e, "description")}
-            ></input>
+            />
           </div>
-          <div className="flex flex-col gap-6 mt-7">
-            <div class="flex gap-2 items-center">
-              <h2 className="text-white font-medium">Thumbnail</h2>
+
+          {/* File inputs */}
+          <div className="flex flex-col gap-6 mt-7 w-full px-2 sm:px-0">
+            <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center">
+              <h2 className="text-white font-medium min-w-[90px]">Thumbnail</h2>
               <input
                 type="file"
                 accept="image/*"
                 className="text-white cursor-pointer"
                 onChange={(e) => setThumbnailFile(e.target.files[0])}
-              ></input>
+              />
             </div>
-            <div class="flex gap-2 items-center">
-              <h2 className="text-white font-medium">Video</h2>
+            <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center">
+              <h2 className="text-white font-medium min-w-[90px]">Video</h2>
               <input
                 type="file"
                 accept="video/mp4, video/webm, video/*"
                 className="text-white cursor-pointer"
                 onChange={(e) => setVideoFile(e.target.files[0])}
-              ></input>
+              />
             </div>
           </div>
-          <div>
-            <div className="flex gap-6 mt-7">
-              <h2
-                className="text-white font-medium border-[1px] px-3 py-2 rounded-lg cursor-pointer hover:bg-white hover:text-black"
-                onClick={handleUpload}
-              >
-                Upload
-              </h2>
-              <Link
-                to="/"
-                className="text-white font-medium border-[1px] px-3 py-2 rounded-lg cursor-pointer hover:bg-white hover:text-black"
-              >
-                Home
-              </Link>
-            </div>
+
+          {/* Buttons */}
+          <div className="flex gap-6 mt-7">
+            <h2
+              className="text-white font-medium border px-4 py-2 rounded-lg cursor-pointer hover:bg-white hover:text-black"
+              onClick={handleUpload}
+            >
+              Upload
+            </h2>
+            <Link
+              to="/"
+              className="text-white font-medium border px-4 py-2 rounded-lg cursor-pointer hover:bg-white hover:text-black"
+            >
+              Home
+            </Link>
           </div>
         </div>
       </div>
+
+      {/* Progress bar */}
       {progress && (
-                  <Box sx={{ width: "100%" }}>
-                    <LinearProgress />
-                  </Box>
-                )}
+        <Box sx={{ width: "100%" }}>
+          <LinearProgress />
+        </Box>
+      )}
     </div>
   );
 }
