@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
+  const navigate=useNavigate();
   // const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
 
@@ -14,6 +15,9 @@ const ForgotPassword = () => {
         { email }
       );
       setMessage("Password reset email sent.")
+      setTimeout(() => {
+        navigate("/"); // Go to home page
+      }, 2000);
       console.log(res)
     }
     catch(err)
@@ -28,7 +32,6 @@ const ForgotPassword = () => {
     // console.log("New Password:", newPassword);
 
     // Example response
-    setMessage("Password successfully changed.");
   };
 
   return (

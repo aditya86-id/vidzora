@@ -24,7 +24,6 @@ function Login({ handleCancel }) {
 
   const handleForgetPassword = () => {
     navigate("/forgot-password");
-    window.location.reload();
   }
 
   const handleLogin = async() => {
