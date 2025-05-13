@@ -180,22 +180,24 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
               minWidth: 0, // Prevents overflow
             }}
           >
-            <Search
-              sx={{
-                flexGrow: 1,
-                width: "100%", // Ensure search spans full width in its container
+            <form
+              onSubmit={(e) => {
+                e.preventDefault(); // Prevent full page reload
+                handleSearch();
               }}
+              style={{ flexGrow: 1, width: "100%", display: "flex" }}
             >
-              <SearchInput
-                placeholder="Search…"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-              />
-              <IconButton sx={{ p: 1, color: "white" }} onClick={handleSearch}>
-                <SearchIcon />
-              </IconButton>
-            </Search>
+              <Search sx={{ flexGrow: 1, width: "100%" }}>
+                <SearchInput
+                  placeholder="Search…"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+                <IconButton type="submit" sx={{ p: 1, color: "white" }}>
+                  <SearchIcon />
+                </IconButton>
+              </Search>
+            </form>
 
             <IconButton
               sx={{

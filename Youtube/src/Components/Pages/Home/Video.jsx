@@ -24,7 +24,7 @@ function Video() {
   const [dislikeCount, setDislikeCount] = useState(0);
   const [subscribed, setSubscribed] = useState(false); // Initial state for dislike count
   const [allVideos, setAllVideos] = useState([]);
-  const [subscriberCount,setSubscriberCount]=useState(0)
+  const [subscribersCount,setSubscribersCount]=useState(0)
   const [commentIcon,setCommentIcon]=useState(false)
   // const [channelId,setChannelId]=useState("")
 
@@ -227,7 +227,7 @@ function Video() {
   }, [video]);
 
 
-  //const [subscriberCount, setSubscriberCount] = useState(0);
+  const [subscriberCount, setSubscriberCount] = useState(0);
 
  const fetchSubscriberCount = async () => {
    if (!video?.owner?._id) return; // Don't fetch if no owner ID
