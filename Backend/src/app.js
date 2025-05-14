@@ -11,10 +11,10 @@ app.use(cors({
 }
 ))
 
-app.use(express.json({limit:"16kb"}))  //used for getting the json file
+app.use(express.json({limit:"10mb"}))  //used for getting the json file
 
-app.use(express.urlencoded({extended:true,limit:"16kb"}))
-app.use(express.static("public")) //used for storing the image,pdf,etc
+app.use(express.urlencoded({extended:true,limit:"10mb"}))
+app.use("/public", express.static("public")); //used for storing the image,pdf,etc
 
 app.use(cookieParser())  //user ke browser ka cookies access and set kar pau and then crud operation perform kar saku
 

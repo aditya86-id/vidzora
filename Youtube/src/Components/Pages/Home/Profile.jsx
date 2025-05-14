@@ -81,7 +81,7 @@ function Profile({ sideNavBar }) {
           <img
             src={profile?.avatar || "default-avatar.png"}
             alt="User avatar"
-            className="w-[230px] h-[230px] rounded-full object-cover cursor-pointer sm:w-[180px] sm:h-[180px] w-[150px] h-[150px]"
+            className="w-[230px] h-[230px] rounded-full object-cover cursor-pointer sm:w-[180px] sm:h-[180px]"
             onClick={handleProfile}
           />
           <div className="flex flex-col gap-2 justify-center">

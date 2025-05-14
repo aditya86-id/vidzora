@@ -25,6 +25,7 @@ const generateAccessAndRefreshToken = async (userId) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
+  //res.json(201, new ApiResponse(201, {}, "User registered successfully"));
   // get user details from frontend
   // validation - not empty
   // check if user already exists: username,email
@@ -36,7 +37,8 @@ const registerUser = asyncHandler(async (req, res) => {
   // return res
   const { fullName, email, username, password, about } = req.body;
   console.log("email:", email);
-  console.log(req.body);
+  console.log("Request body:", req.body);
+  console.log("Uploaded files:", req.files);
 
   if (
     [fullName, email, username, password, about].some(

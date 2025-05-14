@@ -1,4 +1,5 @@
 import { Router } from "express";
+import express from "express";
 import {loginUser,logOutUser,registerUser,refreshAccessToken, changeCurrentPassword, getCurrentUser, updateAccountDetails, updateUserAvatar, updateUserCoverImage, getUserChannelProfile, resetPassword ,getchannelProfile} from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
@@ -7,14 +8,41 @@ import { forgotPassword } from "../controllers/user.controller.js";
 
 
 const router=Router()
+const app = express()
 
-router.route("/register").post(
+router.post(
+  "/debug-upload",
   upload.fields([
     { name: "avatar", maxCount: 1 },
-    { name: "coverImage", maxCount: 1 }
+    { name: "coverImage", maxCount: 1 },
   ]),
-  registerUser
+  (req, res) => {
+    console.log("DEBUG FILES:", req.files);
+    console.log("DEBUG BODY:", req.body);
+    res.json({ status: "OK", files: req.files });
+  }
 );
+
+router.post(
+  "/register",
+  upload.fields([{ name: "avatar" }, { name: "coverImage" }]),
+  async (req, res) => {
+    try {
+      const { username, email, fullName, password, about } = req.body;
+      const avatar = req.files?.avatar?.[0]?.filename || null;
+
+      // Perform DB registration logic...
+
+      res.status(201).json({ success: true, message: "User registered" });
+    } catch (err) {
+      console.error("REGISTER ERROR:", err);
+      res
+        .status(500)
+        .json({ success: false, message: "Internal server error" });
+    }
+  }
+);
+
 
 
 router.route("/login").post(loginUser)

@@ -21,7 +21,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import KeyboardVoiceIcon from "@mui/icons-material/KeyboardVoice";
 import AddIcon from "@mui/icons-material/Add";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-
+import { toast } from "react-toastify";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Login from "../Pages/Home/Login";
@@ -106,8 +106,11 @@ function Navbar({ setSideNavBarFunc, sideNavBar }) {
         {},
         { withCredentials: true }
       );
+      toast.success("Successfully logged out.");
       localStorage.clear();
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
     } catch (err) {
       console.error("Error during logout:", err);
       alert("An error occurred while logging out. Please try again.");

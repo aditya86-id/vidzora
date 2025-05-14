@@ -82,12 +82,12 @@ function UpdateVideo() {
   };
 
   return (
-    <div className="update-video-container bg-black h-screen flex flex-col items-center justify-center text-white">
+    <div className="update-video-container bg-black min-h-screen flex flex-col items-center justify-center text-white px-4 py-8 mt-[60px]">
       <h1 className="text-4xl font-bold mb-5">Update Video</h1>
       {error && <p className="text-red-600">{error}</p>}
       <form
         onSubmit={handleSubmit}
-        className="w-1/2 bg-gray-800 p-6 rounded-lg shadow-md"
+        className="w-full max-w-xl bg-gray-800 p-4 sm:p-6 rounded-lg shadow-md"
       >
         <div className="mb-4">
           <label htmlFor="title" className="block text-lg">

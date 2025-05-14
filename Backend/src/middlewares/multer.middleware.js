@@ -1,12 +1,19 @@
 import multer from "multer";
+import path from "path";
 
-const storage=multer.memoryStorage({
-  destination: function (req,file,cb) {
-    cb(null,"./public/temp")
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "public/temp"); // ✅ Just this
   },
-  filename: function (req,file,cb) {
-    cb(null,file.originalname)
-  }
-})
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
 
-export const upload=multer({storage: storage})
+// ✅ Add `limits` here
+export const upload = multer({
+  storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5 MB limit
+  },
+});

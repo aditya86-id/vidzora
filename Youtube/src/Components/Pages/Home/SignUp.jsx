@@ -46,6 +46,7 @@ function SignUp() {
   };
 
   const handleSignUpData = async() => {
+    console.log("clicked")
     const formData = new FormData();
     formData.append("username", signUpField.username);
     formData.append("email", signUpField.email);
@@ -55,22 +56,32 @@ function SignUp() {
     if (avatarFile) formData.append("avatar", avatarFile);
     console.log(avatarFile)
 
-    await axios
-      .post(`${import.meta.env.VITE_API_URL}/users/register`, formData, {
-        withCredentials: true,
-        
-      })
-      .then((res) => {
-        toast.success("Successfully registered. You can now log in.");
-        navigate("/");
-      })
-      .catch((error) => {
-        if (error.response) {
-          toast.error("Server error:", error.response.data);
-        } else {
-          toast.error("Error:", error.message);
-        }
-      });
+    // await axios
+    //   .post(`${import.meta.env.VITE_API_URL}/users/debug-upload`, formData, {
+    //     withCredentials: true,
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   })
+
+      await axios
+        .post(`${import.meta.env.VITE_API_URL}/users/register`, formData, {
+          withCredentials: true,
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+        })
+        .then((res) => {
+          toast.success("Successfully registered. You can now log in.");
+          navigate("/");
+        })
+        .catch((error) => {
+          if (error.response) {
+            toast.error("Server error:", error.response.data);
+          } else {
+            toast.error("Error:", error.message);
+          }
+        });
   };
 
   return (
