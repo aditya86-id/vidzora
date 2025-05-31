@@ -1,15 +1,27 @@
 import { Router } from "express";
-import express from "express";
-import {loginUser,logOutUser,registerUser,refreshAccessToken, changeCurrentPassword, getCurrentUser, updateAccountDetails, updateUserAvatar, updateUserCoverImage, getUserChannelProfile, resetPassword ,getchannelProfile} from "../controllers/user.controller.js";
+import {
+  loginUser,
+  logOutUser,
+  registerUser,
+  refreshAccessToken,
+  changeCurrentPassword,
+  getCurrentUser,
+  updateAccountDetails,
+  updateUserAvatar,
+  updateUserCoverImage,
+  getUserChannelProfile,
+  getWatchHistory,
+  forgotPassword,
+  resetPassword,
+  getchannelProfile,
+} from "../controllers/user.controller.js";
+
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
-import { getWatchHistory } from "../controllers/user.controller.js";
-import { forgotPassword } from "../controllers/user.controller.js";
 
+const router = Router();
 
-const router=Router()
-const app = express()
-
+// ✅ Debug route (only use during development)
 router.post(
   "/debug-upload",
   upload.fields([
@@ -23,48 +35,47 @@ router.post(
   }
 );
 
+// ✅ Register User (with avatar and optional cover image)
 router.post(
   "/register",
-  upload.fields([{ name: "avatar" }, { name: "coverImage" }]),
-  async (req, res) => {
-    try {
-      const { username, email, fullName, password, about } = req.body;
-      const avatar = req.files?.avatar?.[0]?.filename || null;
-
-      // Perform DB registration logic...
-
-      res.status(201).json({ success: true, message: "User registered" });
-    } catch (err) {
-      console.error("REGISTER ERROR:", err);
-      res
-        .status(500)
-        .json({ success: false, message: "Internal server error" });
-    }
-  }
+  upload.fields([
+    { name: "avatar", maxCount: 1 },
+    { name: "coverImage", maxCount: 1 },
+  ]),
+  registerUser
 );
 
+// ✅ Auth routes
+router.post("/login", loginUser);
+router.post("/logout", logOutUser);
+router.post("/refresh-token", refreshAccessToken);
 
+// ✅ Profile / Account management
+router.post("/change-password", verifyJWT, changeCurrentPassword);
+router.get("/current-user", verifyJWT, getCurrentUser);
+router.patch(
+  "/update-account",
+  verifyJWT,
+  upload.single("avatar"),
+  updateAccountDetails
+);
+router.patch("/avatar", verifyJWT, upload.single("avatar"), updateUserAvatar);
+router.patch(
+  "/cover-image",
+  verifyJWT,
+  upload.single("coverImage"),
+  updateUserCoverImage
+);
 
-router.route("/login").post(loginUser)
+// ✅ Channel/Profile routes
+router.get("/c/:username", verifyJWT, getUserChannelProfile);
+router.get("/channel-profile/:channelId", getchannelProfile);
 
-//secured routes
-router.route("/logout").post(logOutUser)
-router.route("/refresh-token").post(refreshAccessToken)
+// ✅ Watch History
+router.get("/history", verifyJWT, getWatchHistory);
 
-router.route("/change-password").post(verifyJWT,changeCurrentPassword)
-router.route("/current-user").get(verifyJWT,getCurrentUser)
+// ✅ Password Reset
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword);
 
-router.route("/update-account").patch(verifyJWT,upload.single("avatar"),updateAccountDetails)
-
-router.route("/avatar").patch(verifyJWT,upload.single("avatar"),updateUserAvatar)
-
-router.route("/cover-image").patch(verifyJWT,upload.single("coverImage"),updateUserCoverImage)
-
-router.route("/c/:username").get(verifyJWT,getUserChannelProfile)
-
-router.route("/history").get(verifyJWT,getWatchHistory)
-router.route("/forgot-password").post(forgotPassword)
-router.route("/reset-password").post(resetPassword)
-router.route("/channel-profile/:channelId").get(getchannelProfile)
-
-export default router
+export default router;
