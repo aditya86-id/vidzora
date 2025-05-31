@@ -38,12 +38,14 @@ function VideoUpload() {
       formData.append("description", videoUpload.description);
       formData.append("thumbnail", thumbnailFile);
       formData.append("videoFile", videoFile);
+      console.log(localStorage.getItem("accesstoken"));//checking token in console
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/video/`,
         formData,
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem("accesstoken")}`,
           },
           withCredentials: true,
         }
